@@ -1,4 +1,5 @@
 (ns booker.core
+  (:require-macros [cljs.core.async.macros :refer [go-loop]])
   (:require [reagent.core :as reagent :refer [atom]]
             [booker.bootstrap :refer [Button]]
             [booker.login-form :refer [LoginForm]]
@@ -6,12 +7,14 @@
             [reagent.session :as session]
             [secretary.core :as secretary :refer-macros [defroute]]
             [goog.events :as events]
-            [goog.history.EventType :as EventType])
+            [goog.history.EventType :as EventType]
+            [cljs.core.async :refer [chan put! <!]])
   (:import goog.History))
 
 (enable-console-print!)
 
-(defonce app-state (atom {:text "Booker"}))
+(defonce app-state (atom {:comms (chan)
+                          :text "Booker"}))
 
 (defn registration-page []
   [:div.container
@@ -19,7 +22,7 @@
     [:h1 (:text @app-state)]]
    [:div.row
     [:div.col
-      [RegistrationForm]]]])
+      [RegistrationForm (:comms @app-state)]]]])
 
 (defn login-page []
   [:div.container
@@ -27,7 +30,7 @@
     [:h1 (:text @app-state)]]
    [:div.row
     [:div.col
-     [LoginForm]]]])
+     [LoginForm (:comms @app-state)]]]])
 
 (defn current-page []
   [:div [(session/get :current-page)]])
@@ -63,3 +66,9 @@
   ;; your application
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
 )
+
+;; -------------------------
+;; Application event loop
+(go-loop [ev (<! (:comms @app-state))]
+         (println "Event: " ev)
+         (recur (<! (:comms @app-state))))

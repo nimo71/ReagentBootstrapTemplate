@@ -1,12 +1,13 @@
-(ns booker.registration-form)
+(ns booker.registration-form
+  (:require [cljs.core.async :refer [put!]]))
 
-(defn register [data]
-  (println "Register: " data))
+(defn register [comms data]
+  (put! comms {:register data}))
 
 (defn change-data [data field event]
   (swap! data assoc field (-> event .-target .-value)))
 
-(defn RegistrationForm []
+(defn RegistrationForm [comms]
   (let [data (atom {:email "" :confirm-email "" :password "" :confirm-password ""})]
     [:form
      [:div.form-group
@@ -26,4 +27,5 @@
       [:label {:for "confirmPassword"} "Confirm password"]
       [:input.form-control {:type "password" :id "confirmPassword" :placeholder "Confirm password"
                             :onChange #(change-data data :confirm-password %)}]]
-     [:button.btn.btn-primary {:type "button" :on-click #(register @data)} "Register"]]))
+
+     [:button.btn.btn-primary {:type "button" :on-click #(register comms @data)} "Register"]]))
