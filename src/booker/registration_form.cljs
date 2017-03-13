@@ -28,4 +28,4 @@
       [:input.form-control {:type "password" :id "confirmPassword" :placeholder "Confirm password"
                             :onChange #(change-data data :confirm-password %)}]]
 
-     [:button.btn.btn-primary {:type "button" :on-click #(register comms @data)} "Register"]]))
+     [:button.btn.btn-primary.pull-right {:type "button" :on-click #(register comms @data)} "Register"]]))

@@ -3,7 +3,7 @@
   (:require [reagent.core :as reagent :refer [atom]]
             [booker.navigation :as nav]
             [reagent.session :as session]
-            [cljs.core.async :refer [chan put! <!]]))
+            [cljs.core.async :refer [chan <!]]))
 
 (enable-console-print!)
 
@@ -24,5 +24,5 @@
 ;; -------------------------
 ;; Application event loop
 (go-loop [ev (<! (:comms @app-state))]
-         (println "Event: " ev)
-         (recur (<! (:comms @app-state))))
+  (println "Event: " ev)
+  (recur (<! (:comms @app-state))))

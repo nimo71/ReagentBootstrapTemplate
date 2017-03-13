@@ -3,40 +3,50 @@
             [reagent.session :as session]
             [goog.events :as events]
             [goog.history.EventType :as EventType]
+            [booker.nav-bar :refer [NavBar]]
             [booker.login-form :refer [LoginForm]]
             [booker.registration-form :refer [RegistrationForm]])
   (:import goog.History))
 
-(defn registration-page [comms]
+
+(defn page [comms {title :title
+                   form :form}]
   [:div.container
-   [:div.row
-    [:h1 "Registration"]]
-   [:div.row
-    [:div.col
-     [RegistrationForm comms]]]])
+   [NavBar comms]
+   [:div.panel.panel-default
+    [:div.panel-heading
+     [:h2 title]]
+    [:div.panel-body
+     [form comms]]]])
+
+(defn registration-page [comms]
+  (page comms {:title "Registration"
+               :form  RegistrationForm}))
 
 (defn login-page [comms]
-  [:div.container
-   [:div.row
-    [:h1 "Login"]]
-   [:div.row
-    [:div.col
-     [LoginForm comms]]]])
+  (page comms {:title "Login"
+               :form LoginForm}))
+
+(def pages
+  {:login login-page
+   :registration registration-page})
 
 (defn current-page [comms]
-  [:div [(session/get :current-page) comms]])
+  (let [page-key (session/get :current-page)
+        page-fn (pages page-key)]
+    [:div [page-fn comms]]))
 
 ;; -------------------------
 ;; Routes
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/registration" []
-                    (session/put! :current-page #'registration-page))
+                    (session/put! :current-page :registration))
 
 (secretary/defroute "/login" []
-                    (session/put! :current-page #'login-page))
+                    (session/put! :current-page :login))
 
-(session/put! :current-page #'registration-page)
+(session/put! :current-page :login)
 
 ;; -------------------------
 ;; History

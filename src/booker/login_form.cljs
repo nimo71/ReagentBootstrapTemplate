@@ -18,4 +18,4 @@
       [:label {:for "password"} "Password"]
       [:input.form-control {:type     "password" :id "password" :placeholder "Password"
                             :onChange #(change-data data :password %)}]]
-     [:button.btn.btn-primary {:type "button" :on-click #(login comms @data)} "Login"]]))
+     [:button.btn.btn-primary.pull-right {:type "button" :on-click #(login comms @data)} "Login"]]))
