@@ -1,9 +1,10 @@
 (ns template.core
-  (:require-macros [cljs.core.async.macros :refer [go-loop]])
+  (:require-macros [cljs.core.async.macros :refer [go-loop go]])
   (:require [reagent.core :as reagent :refer [atom]]
             [template.navigation :as nav]
             [reagent.session :as session]
-            [cljs.core.async :refer [chan <!]]))
+            [cljs.core.async :refer [chan <! >! put! close!]]
+            [chord.client :refer [ws-ch]]))
 
 (enable-console-print!)
 
@@ -11,9 +12,6 @@
                           :text "Template"}))
 
 (nav/hook-browser-navigation!)
-
-(reagent/render-component [nav/current-page (:comms @app-state)]
-                          (. js/document (getElementById "app")))
 
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
@@ -23,6 +21,31 @@
 
 ;; -------------------------
 ;; Application event loop
-(go-loop [ev (<! (:comms @app-state))]
-  (println "Event: " ev)
-  (recur (<! (:comms @app-state))))
+
+(set! (.-onload js/window)
+  (fn []
+    (go
+      (let [{:keys [ws-channel error]} (<! (ws-ch "ws://localhost:8080/ws"))]
+
+        (if error
+
+          (reagent/render-component
+            [:div "Couldn't connect to websocket: " (pr-str error)]
+            js/document.body)
+
+          (reagent/render-component [nav/current-page (:comms @app-state)]
+            (. js/document (getElementById "app"))))
+
+        (go-loop []
+          (println "receive loop")
+          (let [{:keys [message error]} (<! ws-channel)]
+            (if-not error
+              (println "received: " (pr-str message))
+              (println "Error: " error))
+            (when message (recur))))
+
+        (go-loop []
+          (println "send loop")
+          (when-let [msg (<! (:comms @app-state))]
+            (>! ws-channel msg)
+            (recur)))))))

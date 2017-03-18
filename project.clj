@@ -12,7 +12,8 @@
                  [cljsjs/react-bootstrap "0.30.7-0"]
                  [reagent "0.6.0"]
                  [reagent-utils "0.2.0"]
-                 [secretary "1.2.3"]]
+                 [secretary "1.2.3"]
+                 [jarohen/chord "0.8.1"]]
 
   :plugins [[lein-figwheel "0.5.9"]
             [lein-cljsbuild "1.1.5" :exclusions [[org.clojure/clojure]]]]
