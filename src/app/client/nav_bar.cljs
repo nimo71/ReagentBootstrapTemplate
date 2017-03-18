@@ -1,4 +1,4 @@
-(ns template.nav-bar
+(ns app.client.nav-bar
   (:require [reagent.core :as reagent :refer [atom]]
             [reagent.session :as session]))
 

@@ -1,11 +1,11 @@
-(ns template.navigation
+(ns app.client.navigation
   (:require [secretary.core :as secretary :refer-macros [defroute]]
             [reagent.session :as session]
             [goog.events :as events]
             [goog.history.EventType :as EventType]
-            [template.nav-bar :refer [NavBar]]
-            [template.login-form :refer [LoginForm]]
-            [template.registration-form :refer [RegistrationForm]])
+            [app.client.nav-bar :refer [NavBar]]
+            [app.client.login-form :refer [LoginForm]]
+            [app.client.registration-form :refer [RegistrationForm]])
   (:import goog.History))
 
 

@@ -1,7 +1,7 @@
-(ns template.core
+(ns app.client.core
   (:require-macros [cljs.core.async.macros :refer [go-loop go]])
   (:require [reagent.core :as reagent :refer [atom]]
-            [template.navigation :as nav]
+            [app.client.navigation :as nav]
             [reagent.session :as session]
             [cljs.core.async :refer [chan <! >! put! close!]]
             [chord.client :refer [ws-ch]]))

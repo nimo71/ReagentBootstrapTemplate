@@ -1,4 +1,4 @@
-(ns template.login-form
+(ns app.client.login-form
   (:require [cljs.core.async :refer [put!]]))
 
 (defn login [comms data]

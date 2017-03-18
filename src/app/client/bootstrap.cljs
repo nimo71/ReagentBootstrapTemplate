@@ -1,4 +1,4 @@
-(ns template.bootstrap
+(ns app.client.bootstrap
   (:require [reagent.core :as reagent :refer [atom]]
             [cljsjs.react-bootstrap]))
 

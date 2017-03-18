@@ -1,4 +1,4 @@
-(ns template.registration-form
+(ns app.client.registration-form
   (:require [cljs.core.async :refer [put!]]))
 
 (defn register [comms data]

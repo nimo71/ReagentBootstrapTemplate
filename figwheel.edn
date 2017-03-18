@@ -1,0 +1,34 @@
+{
+ :http-server-root "public" ;; default
+ :server-port 3449          ;; default
+ :open-file-command "emacsclient"
+ :builds [{:id "dev"
+           :source-paths ["src"]
+
+           ;; the presence of a :figwheel configuration here
+           ;; will cause figwheel to inject the figwheel client
+           ;; into your build
+           :figwheel {:on-jsload "app.client.core/on-js-reload"
+                      ;; :open-urls will pop open your application
+                      ;; in the default browser once Figwheel has
+                      ;; started and complied your application.
+                      ;; Comment this out once it no longer serves you.
+                      :open-urls ["http://localhost:3449/"]}
+
+           :compiler {:main app.client.core
+                      :asset-path "js/compiled/out"
+                      :output-to "resources/public/js/compiled/app.js"
+                      :output-dir "resources/public/js/compiled/out"
+                      :source-map-timestamp true
+                      ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
+                      ;; https://github.com/binaryage/cljs-devtools
+                      :preloads [devtools.preload]}}
+          ;; This next build is an compressed minified build for
+          ;; production. You can build this with:
+          ;; lein cljsbuild once min
+          {:id "min"
+           :source-paths ["src"]
+           :compiler {:output-to "resources/public/js/compiled/app.js"
+                      :main app.client.core
+                      :optimizations :advanced
+                      :pretty-print false}}]}
