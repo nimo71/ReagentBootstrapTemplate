@@ -1,4 +1,4 @@
-(ns booker.registration-form
+(ns template.registration-form
   (:require [cljs.core.async :refer [put!]]))
 
 (defn register [comms data]

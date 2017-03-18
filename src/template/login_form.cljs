@@ -1,4 +1,4 @@
-(ns booker.login-form
+(ns template.login-form
   (:require [cljs.core.async :refer [put!]]))
 
 (defn login [comms data]

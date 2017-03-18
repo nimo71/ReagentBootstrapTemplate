@@ -1,4 +1,4 @@
-(defproject booker "0.1.0-SNAPSHOT"
+(defproject template "0.1.0-SNAPSHOT"
   :description "FIXME: write this!"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -28,16 +28,16 @@
                 ;; the presence of a :figwheel configuration here
                 ;; will cause figwheel to inject the figwheel client
                 ;; into your build
-                :figwheel {:on-jsload "booker.core/on-js-reload"
+                :figwheel {:on-jsload "template.core/on-js-reload"
                            ;; :open-urls will pop open your application
                            ;; in the default browser once Figwheel has
                            ;; started and complied your application.
                            ;; Comment this out once it no longer serves you.
-                           :open-urls ["http://localhost:3449/index.html"]}
+                           :open-urls ["http://localhost:3449/"]}
 
-                :compiler {:main booker.core
+                :compiler {:main template.core
                            :asset-path "js/compiled/out"
-                           :output-to "resources/public/js/compiled/booker.js"
+                           :output-to "resources/public/js/compiled/template.js"
                            :output-dir "resources/public/js/compiled/out"
                            :source-map-timestamp true
                            ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
@@ -48,8 +48,8 @@
                ;; lein cljsbuild once min
                {:id "min"
                 :source-paths ["src"]
-                :compiler {:output-to "resources/public/js/compiled/booker.js"
-                           :main booker.core
+                :compiler {:output-to "resources/public/js/compiled/template.js"
+                           :main template.core
                            :optimizations :advanced
                            :pretty-print false}}]}
 

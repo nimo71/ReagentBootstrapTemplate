@@ -1,4 +1,4 @@
-# booker
+# Template
 
 FIXME: Write a one-line description of your library/project.
 

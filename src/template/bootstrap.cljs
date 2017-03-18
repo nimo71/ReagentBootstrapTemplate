@@ -1,4 +1,4 @@
-(ns booker.bootstrap
+(ns template.bootstrap
   (:require [reagent.core :as reagent :refer [atom]]
             [cljsjs.react-bootstrap]))
 

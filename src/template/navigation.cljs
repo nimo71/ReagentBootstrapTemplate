@@ -1,11 +1,11 @@
-(ns booker.navigation
+(ns template.navigation
   (:require [secretary.core :as secretary :refer-macros [defroute]]
             [reagent.session :as session]
             [goog.events :as events]
             [goog.history.EventType :as EventType]
-            [booker.nav-bar :refer [NavBar]]
-            [booker.login-form :refer [LoginForm]]
-            [booker.registration-form :refer [RegistrationForm]])
+            [template.nav-bar :refer [NavBar]]
+            [template.login-form :refer [LoginForm]]
+            [template.registration-form :refer [RegistrationForm]])
   (:import goog.History))
 
 

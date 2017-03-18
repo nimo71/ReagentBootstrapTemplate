@@ -1,14 +1,14 @@
-(ns booker.core
+(ns template.core
   (:require-macros [cljs.core.async.macros :refer [go-loop]])
   (:require [reagent.core :as reagent :refer [atom]]
-            [booker.navigation :as nav]
+            [template.navigation :as nav]
             [reagent.session :as session]
             [cljs.core.async :refer [chan <!]]))
 
 (enable-console-print!)
 
 (defonce app-state (atom {:comms (chan)
-                          :text "Booker"}))
+                          :text "Template"}))
 
 (nav/hook-browser-navigation!)
 

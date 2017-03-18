@@ -1,4 +1,4 @@
-(ns booker.nav-bar
+(ns template.nav-bar
   (:require [reagent.core :as reagent :refer [atom]]
             [reagent.session :as session]))
 
@@ -7,7 +7,7 @@
     [:nav.navbar.navbar-inverse.navbar-fixed-top
      [:div.container
       [:div.navbar-header
-       [:a.navbar-brand {:href "#"} "Booker"]]
+       [:a.navbar-brand {:href "#"} "Template"]]
       [:ul.nav.navbar-nav
 
        [:li {:class (when (= :login current-page) "active")}
